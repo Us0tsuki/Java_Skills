@@ -1,0 +1,18 @@
+What is the difference between:
+
+public <T> void createArray(T sample){
+    ArrayList<T> list = new ArrayList<T>();
+    list.add(sample);
+}
+and
+
+public void createArray(T sample){
+    ArrayList<T> list = new ArrayList<T>();
+    list.add(sample);
+}
+
+In the first case, the generic parameter T is defined for the method. Other methods may have a different T.
+
+In the second case, the generic parameter T is defined for the class or interface. All methods within that class or interface must have the same T.
+
+Defining a class-wide generic allows you to enforce the same type parameter on many methods. You can also have fields of the generic type. See ArrayList<t> for an example.
