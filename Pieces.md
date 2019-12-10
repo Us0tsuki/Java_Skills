@@ -16,3 +16,5 @@ From [Java Tutorials](https://docs.oracle.com/javase/tutorial/java/javaOO/classv
 *Class methods* can access *class variables* and *class methods* directly.
 *Class methods* CANNOT access *instance variables* or *instance methods* directly—they must use an __object reference__. 
 Also, class methods CANNOT use the __this__ keyword as there is no instance for this to refer to.
+
+The only way this would be false is if the non-static context did not have access to the static member (ex. the static member is **private** to a class and the non-static code is not in that class).
