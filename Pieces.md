@@ -18,3 +18,17 @@ From [Java Tutorials](https://docs.oracle.com/javase/tutorial/java/javaOO/classv
 Also, class methods CANNOT use the __this__ keyword as there is no instance for this to refer to.
 
 The only way this would be false is if the non-static context did not have access to the static member (ex. the static member is **private** to a class and the non-static code is not in that class).
+
+# Double v.s. BigDecimal?
+https://stackoverflow.com/questions/3413448/double-vs-bigdecimal
+
+The disadvantage of BigDecimal is that it's slower, and it's a bit more difficult to program algorithms that way (due to + - * and / not being overloaded).
+
+There are two main differences from double:
+- Arbitrary precision, similarly to BigInteger they can contain number of arbitrary precision and size
+- Doubles store values as binary and therefore might introduce an error solely by converting a decimal number to a binary number, without even doing any arithmetic （1/3, 1/7, 1/10）.
+- Base 10 instead of Base 2, a BigDecimal is n*10^scale where n is an arbitrary large signed integer and scale can be thought of as the number of digits to move the decimal point left or right
+
+The reason you should use BigDecimal for monetary calculations is not that it can represent any number, but that it can represent all numbers that can be represented in decimal notion(numbers that have a finite number of decimal digits) and that include virtually all numbers in the monetary world (you never transfer 1/3 $ to someone).
+
+P.S. decimal这里指十进制
