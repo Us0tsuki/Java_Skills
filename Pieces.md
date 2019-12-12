@@ -32,3 +32,8 @@ There are two main differences from double:
 The reason you should use BigDecimal for monetary calculations is not that it can represent any number, but that it can represent all numbers that can be represented in decimal notion(numbers that have a finite number of decimal digits) and that include virtually all numbers in the monetary world (you never transfer 1/3 $ to someone).
 
 P.S. decimal这里指十进制
+
+# How to call a C program from Java?
+Java native interface (JNI) is a framework provided by java that enables java programs to call native code and vice-versa.
+Using JNI a java program has the capability to call the native C code. But we lose the core objective of java which is platform independence. So calling a C program from java should be used judiciously.
+https://javapapers.com/core-java/how-to-call-a-c-program-from-java/
