@@ -37,3 +37,14 @@ P.S. decimal这里指十进制
 Java native interface (JNI) is a framework provided by java that enables java programs to call native code and vice-versa.
 Using JNI a java program has the capability to call the native C code. But we lose the core objective of java which is platform independence. So calling a C program from java should be used judiciously.
 https://javapapers.com/core-java/how-to-call-a-c-program-from-java/
+
+
+# Do I really need to define default constructor in java?
+A default (no-argument) constructor is automatically created only when you do not define any constructor yourself.
+If you need two constructors, one with arguments and one without, you need to manually define both.
+
+In other words, the moment we define any parameterized constructor, we must also define a no-arg constructor if we want to instantiate the object of that class via a no-arg constructor.
+
+Also in case of inheritance, a sub-class with no constructors; is supplied one default constructor. This default constructor supplied by Java as above calls the super class's no-arg constructor. __If it can't find one, then it will throw an error.__
+
+So yes __it's always a good choice to define a no-arg/default constructor.__
