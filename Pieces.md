@@ -92,3 +92,38 @@ Map<String, String> myMap = (Map<String, String>) deserializeMap();
 ```
 There is no way to determine whether the Map really should have the generic parameters <String, String>. You must know beforehand what the parameters should be (or you'll find out when you get a ClassCastException). This is why the code generates a warning, because the compiler can't possibly know whether is safe.
 
+# StringUtils.isBlank() vs StringUtils.isEmpty()
+StringUtils.isBlank() checks if a String is whitespace, empty ("") or null.
+```
+ StringUtils.isBlank(null)      = true
+ StringUtils.isBlank("")        = true  
+ StringUtils.isBlank(" ")       = true  
+ StringUtils.isBlank("bob")     = false  
+ StringUtils.isBlank("  bob  ") = false
+```
+For comparison StringUtils.isEmpty(): 
+```
+ StringUtils.isEmpty(null)      = true
+ StringUtils.isEmpty("")        = true  
+ StringUtils.isEmpty(" ")       = false  
+ StringUtils.isEmpty("bob")     = false  
+ StringUtils.isEmpty("  bob  ") = false
+```
+
+> Official Implementation:
+```
+public static boolean isBlank(CharSequence cs) {
+    int strLen;
+    if (cs != null && (strLen = cs.length()) != 0) {
+        for(int i = 0; i < strLen; ++i) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    } else {
+        return true;
+    }
+}
+```
