@@ -48,3 +48,43 @@ In other words, the moment we define any parameterized constructor, we must also
 Also in case of inheritance, a sub-class with no constructors; is supplied one default constructor. This default constructor supplied by Java as above calls the super class's no-arg constructor. __If it can't find one, then it will throw an error.__
 
 So yes __it's always a good choice to define a no-arg/default constructor.__
+
+# How do I address unchecked cast warnings?
+return (List<SiteUpgradePolicyEntity>) this.findBySQLQuery(queryName,queryParams);
+findBySQLQuery signature:
+public __List<?>__ findBySQLQuery(final String queryName, final Map<String, Object> parameters) throws DataAccessException {}
+
+1.The obvious answer, of course, is not to do the unchecked cast. Actually, you are strongly discouraged to do almost any cast, so you should limit it as much as possible! You lose the benefits of Java's compile-time strongly-typed features.
+In any case, Class.cast() should be used mainly when you retrieve the Class token via reflection. It's more idiomatic to write
+```MyObject myObject = (MyObject) object```
+rather than
+```MyObject myObject = MyObject.class.cast(object)```
+
+2.
+## How to have Java method return generic list of any type?
+```
+public <T> List<T> magicalListGetter() {
+    return new ArrayList<T>();
+}
+```
+if cast is needed,
+```
+private Object actuallyT;
+
+public <T> List<T> magicalListGetter(Class<T> klazz) {
+    List<T> list = new ArrayList<>();
+    list.add(klazz.cast(actuallyT));
+    try {
+        list.add(klazz.getConstructor().newInstance()); // If default constructor
+    } ...
+    return list;
+}
+```
+
+3.If it's absolutely necessary, then at least try to __limit the scope__ of the @SuppressWarnings annotation. According to its Javadocs, it can go on local variables; this way, it doesn't even affect the entire method.
+
+Example:
+@SuppressWarnings("unchecked")
+Map<String, String> myMap = (Map<String, String>) deserializeMap();
+There is no way to determine whether the Map really should have the generic parameters <String, String>. You must know beforehand what the parameters should be (or you'll find out when you get a ClassCastException). This is why the code generates a warning, because the compiler can't possibly know whether is safe.
+
