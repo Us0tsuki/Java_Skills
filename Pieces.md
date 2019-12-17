@@ -50,10 +50,11 @@ Also in case of inheritance, a sub-class with no constructors; is supplied one d
 So yes __it's always a good choice to define a no-arg/default constructor.__
 
 # How do I address unchecked cast warnings?
+```
 return (List<SiteUpgradePolicyEntity>) this.findBySQLQuery(queryName,queryParams);
 findBySQLQuery signature:
 public __List<?>__ findBySQLQuery(final String queryName, final Map<String, Object> parameters) throws DataAccessException {}
-
+```
 1.The obvious answer, of course, is not to do the unchecked cast. Actually, you are strongly discouraged to do almost any cast, so you should limit it as much as possible! You lose the benefits of Java's compile-time strongly-typed features.
 In any case, Class.cast() should be used mainly when you retrieve the Class token via reflection. It's more idiomatic to write
 ```MyObject myObject = (MyObject) object```
