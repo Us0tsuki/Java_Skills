@@ -55,7 +55,7 @@ return (List<SiteUpgradePolicyEntity>) this.findBySQLQuery(queryName,queryParams
 findBySQLQuery signature:
 public __List<?>__ findBySQLQuery(final String queryName, final Map<String, Object> parameters) throws DataAccessException {}
 ```
-## 1.The obvious answer, of course, is not to do the unchecked cast. 
+## 1. The obvious answer, of course, is not to do the unchecked cast. 
 Actually, you are strongly discouraged to do almost any cast, so you should limit it as much as possible! You lose the benefits of Java's compile-time strongly-typed features.
 In any case, Class.cast() should be used mainly when you retrieve the Class token via reflection. It's more idiomatic to write
 ```MyObject myObject = (MyObject) object```
@@ -82,11 +82,13 @@ public <T> List<T> magicalListGetter(Class<T> klazz) {
 }
 ```
 
-## 3.If it's absolutely necessary, then at least try to __limit the scope__ of the @SuppressWarnings annotation. 
+## 3. If it's absolutely necessary, then at least try to __limit the scope__ of the @SuppressWarnings annotation. 
 According to its Javadocs, it can go on local variables; this way, it doesn't even affect the entire method.
 
 Example:
+```
 @SuppressWarnings("unchecked")
 Map<String, String> myMap = (Map<String, String>) deserializeMap();
+```
 There is no way to determine whether the Map really should have the generic parameters <String, String>. You must know beforehand what the parameters should be (or you'll find out when you get a ClassCastException). This is why the code generates a warning, because the compiler can't possibly know whether is safe.
 
