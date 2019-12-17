@@ -55,14 +55,14 @@ return (List<SiteUpgradePolicyEntity>) this.findBySQLQuery(queryName,queryParams
 findBySQLQuery signature:
 public __List<?>__ findBySQLQuery(final String queryName, final Map<String, Object> parameters) throws DataAccessException {}
 ```
-1.The obvious answer, of course, is not to do the unchecked cast. Actually, you are strongly discouraged to do almost any cast, so you should limit it as much as possible! You lose the benefits of Java's compile-time strongly-typed features.
+## 1.The obvious answer, of course, is not to do the unchecked cast. 
+Actually, you are strongly discouraged to do almost any cast, so you should limit it as much as possible! You lose the benefits of Java's compile-time strongly-typed features.
 In any case, Class.cast() should be used mainly when you retrieve the Class token via reflection. It's more idiomatic to write
 ```MyObject myObject = (MyObject) object```
 rather than
 ```MyObject myObject = MyObject.class.cast(object)```
 
-2.
-## How to have Java method return generic list of any type?
+## 2. How to have Java method return generic list of any type?
 ```
 public <T> List<T> magicalListGetter() {
     return new ArrayList<T>();
@@ -82,7 +82,8 @@ public <T> List<T> magicalListGetter(Class<T> klazz) {
 }
 ```
 
-3.If it's absolutely necessary, then at least try to __limit the scope__ of the @SuppressWarnings annotation. According to its Javadocs, it can go on local variables; this way, it doesn't even affect the entire method.
+## 3.If it's absolutely necessary, then at least try to __limit the scope__ of the @SuppressWarnings annotation. 
+According to its Javadocs, it can go on local variables; this way, it doesn't even affect the entire method.
 
 Example:
 @SuppressWarnings("unchecked")
