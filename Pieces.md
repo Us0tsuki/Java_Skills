@@ -5,8 +5,8 @@ https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 https://www.baeldung.com/java-void-type
 
 # Comparing two integers
-https://stackoverflow.com/questions/1514910/how-to-properly-compare-two-integers-in-java
-if (x.intValue() == y.intValue())
+https://stackoverflow.com/questions/1514910/how-to-properly-compare-two-integers-in-java \
+if (x.intValue() == y.intValue()) or \
 if (x.equals(y))
 
 # Can non-static methods modify static variables ?
