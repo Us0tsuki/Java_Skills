@@ -127,3 +127,8 @@ public static boolean isBlank(CharSequence cs) {
     }
 }
 ```
+
+# Maven  GC overhead limit exceeded
+While runnning mvn dependency:tree on a big project.
+Solution: Just allocate more memory to jvm
+https://cwiki.apache.org/confluence/display/MAVEN/OutOfMemoryError
