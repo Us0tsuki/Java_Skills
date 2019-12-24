@@ -165,7 +165,7 @@ dependency:tree是把照妖镜，pom.xml用它照照，所有传递性依赖都�
 ```
 其实有时你会发现简单地用dependency:tree往往并不能查看到所有的传递依赖。不过如果你真的想要看所有的，必须得加一个-Dverbose参数，这时就必定是最全的了。
 全是全了，但显示出来的东西太多，头晕目眩，有没有好法呢？当然有了，加上Dincludes或者Dexcludes说出你喜欢或讨厌，dependency:tree就会帮你过滤出来：
-```
+
 过滤串使用groupId:artifactId:version的方式进行过滤，可以不写全啦，如：
 ```
 mvn dependency:tree -Dverbose -Dincludes=asm:asm
@@ -215,7 +215,7 @@ mvn dependency:tree -Dverbose -Dincludes=asm:asm
     [INFO] BUILD SUCCESS  
 ```
 
-第三板斧:查看运行期类来源的JAR包
+# 第三板斧:查看运行期类来源的JAR包
 
 有时，你以为解决了，但是偏偏还是报类包冲突（典型症状是java.lang.ClassNotFoundException或Method不兼容等异常），这时你可以设置一个断点，在断点处通过下面这个我做的工具类来查看Class所来源的JAR包：
 ```
