@@ -303,4 +303,14 @@ https://www.keycdn.com/blog/database-performance
 
 # Collections.singletonMap()
 public static Map singletonMap(K key, V value)
+
 The singletonMap() method of java.util.Collections class is used to return an __immutable map__, mapping only the specified key to the specified value. The returned map is serializable.
+
+# Collections.singletonList(T o) v.s. Arrays.asList(T o)
+Collections.singletonList(something) is immutable whereas Arrays.asList(something) is a fixed size List representation of an Array where the List and Array gets joined in the heap.
+
+Arrays.asList(something) allows non-structural changes made to it, which gets reflected to **both** the List and the conjoined array. It throws __UnsupportedOperationException__ for adding, removing elements although you can set an element for a particular index.
+
+Any changes made to the List returned by Collections.singletonList(something) will result in UnsupportedOperationException.
+
+Also, the capacity of the List returned by Collections.singletonList(something) will always be 1 unlike Arrays.asList(something) whose capacity will be the size of the backed array.
