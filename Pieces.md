@@ -135,6 +135,24 @@ https://cwiki.apache.org/confluence/display/MAVEN/OutOfMemoryError
 
 # Avoiding negative conditionals
 In Clean Code, Robert Martin writes, “Negatives are just a bit harder to understand than positives. So, when possible, conditionals should be expressed as positives.” (Martin, [G29]). IntelliJ IDEA has three inspections to help you stay positive.
+```
+public boolean isAcademic(String email) {
+  if (email != null && !email.isEmpty()) {
+    return email.contains(".edu");
+  }
+  return false;
+}
+```
+When conditionals are negative, this is a good indication that control flow can be refactored. When refactoring your code, you should apply the intention Invert If Condition. Notice how De Morgan’s law is implicitly used to refactor this clause
+```
+public boolean isAcademic(String email) {
+  if (email == null || email.isEmpty()) {
+    return false;
+  }
+
+  return email.contains(".edu");
+}
+```
 
 # Maven dependency tree
 ## 第一板斧:找到传递依赖的鬼出在哪里？
