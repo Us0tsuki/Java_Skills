@@ -300,3 +300,7 @@ Reimport一下，IDE会强制根据新的pom.xml设置重新分析并加载依�
 
 # The Path to Improve Database Performance
 https://www.keycdn.com/blog/database-performance
+
+# Collections.singletonMap()
+public static Map singletonMap(K key, V value)
+The singletonMap() method of java.util.Collections class is used to return an __immutable map__, mapping only the specified key to the specified value. The returned map is serializable.
