@@ -314,3 +314,46 @@ Arrays.asList(something) allows non-structural changes made to it, which gets re
 Any changes made to the List returned by Collections.singletonList(something) will result in UnsupportedOperationException.
 
 Also, the capacity of the List returned by Collections.singletonList(something) will always be 1 unlike Arrays.asList(something) whose capacity will be the size of the backed array.
+
+# NoClassDefFoundError during runtime
+While it's possible that this is due to a classpath mismatch between compile-time and run-time, it's not necessarily true.
+Exceptions:
+1.java.lang.ClassNotFoundException 
+This exception indicates that the class was not found on the classpath. This indicates that we were trying to load the class definition, and the class did not exist on the classpath.
+
+2.java.lang.NoClassDefFoundError 
+This exception indicates that the JVM looked in its internal __class definition data structure(not runtime classpath)__ for the definition of a class and did not find it. This is different than saying that it could not be loaded from the classpath. Usually this indicates that we previously attempted to load a class from the classpath, but failed for some reason - now we're trying to use the class again (and thus need to load it, since it failed last time), but we're not even going to try to load it, because we already failed once earlier (and reasonably suspect that we would fail again). The earlier failure could be a ClassNotFoundException or an ExceptionInInitializerError (indicating a failure in the static initialization block) or any number of other problems. The point is, a NoClassDefFoundError is not necessarily a classpath problem.
+NoClassDefFoundErrorDemo.java:
+```
+public class NoClassDefFoundErrorDemo {
+    public static void main(String[] args) {
+        try {
+            // The following line would throw ExceptionInInitializerError
+            SimpleCalculator calculator1 = new SimpleCalculator();
+        } catch (Throwable t) {
+            System.out.println(t);
+        }
+        // The following line would cause NoClassDefFoundError
+        SimpleCalculator calculator2 = new SimpleCalculator();
+    }
+}
+```
+SimpleCalculator.java:
+```
+public class SimpleCalculator {
+    static int undefined = 1 / 0;
+}
+```
+
+Possible Problems:
+> 1. Not in Classpath.
+> 2. Class belongs to a missing JAR file, JAR was not added into classpath or sometimes jar's name has been changed.
+> 3. Desired classpath was overrided.
+> 4. Permission issue on JAR file.
+> 5. Your compiled class defined in a package, doesn’t present in the same package while loading.
+Possible Solutions:
+> 1. Print System.getproperty("java.classpath") to know actual runtime classpath.
+> 2. Check for java.lang.ExceptionInInitializerError in your log file. NoClassDefFoundError due to the failure of static initialization is quite common.
+> 3. Any start-up script is overriding Classpath environment variable.
+> 4. Because NoClassDefFoundError is a subclass of java.lang.LinkageError it can also come if one of it dependency like native library may not available.
+> 5. You might be running your program using jar command and class was not defined in manifest file's ClassPath attribute.
