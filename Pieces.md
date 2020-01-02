@@ -351,6 +351,7 @@ Possible Problems:
 > 3. Desired classpath was overrided.
 > 4. Permission issue on JAR file.
 > 5. Your compiled class defined in a package, doesn’t present in the same package while loading.
+
 Possible Solutions:
 > 1. Print System.getproperty("java.classpath") to know actual runtime classpath.
 > 2. Check for java.lang.ExceptionInInitializerError in your log file. NoClassDefFoundError due to the failure of static initialization is quite common.
