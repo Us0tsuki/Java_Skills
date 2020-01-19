@@ -358,3 +358,18 @@ Possible Solutions:
 > 3. Any start-up script is overriding Classpath environment variable.
 > 4. Because NoClassDefFoundError is a subclass of java.lang.LinkageError it can also come if one of it dependency like native library may not available.
 > 5. You might be running your program using jar command and class was not defined in manifest file's ClassPath attribute.
+
+# Regex Pattern Repetition
+The finite repetition syntax uses {m,n} in place of star/plus/question mark.
+
+From java.util.regex.Pattern:
+
+X{n}      X, exactly n times
+X{n,}     X, at least n times
+X{n,m}    X, at least n but not more than m times
+All repetition metacharacter have the same precedence, so just like you may need grouping for *, +, and ?, you may also for {n,m}.
+
+ha* matches e.g. "haaaaaaaa"
+ha{3} matches only "haaa"
+(ha)* matches e.g. "hahahahaha"
+(ha){3} matches only "hahaha"
