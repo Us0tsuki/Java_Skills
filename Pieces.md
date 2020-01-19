@@ -1,3 +1,6 @@
+# Markdown Guide
+https://markdown-guide.readthedocs.io/en/latest/basics.html#line-return
+
 # Markdown Cheatsheet
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
@@ -364,13 +367,13 @@ The finite repetition syntax uses {m,n} in place of star/plus/question mark.
 
 From java.util.regex.Pattern:
 
-X{n}      X, exactly n times
-X{n,}     X, at least n times
-X{n,m}    X, at least n but not more than m times
+X{n}      X, exactly n times  
+X{n,}     X, at least n times  
+X{n,m}    X, at least n but not more than m times  
 All repetition metacharacter have the same precedence, so just like you may need grouping for *, +, and ?, you may also for {n,m}.
 
-ha* matches e.g. "haaaaaaaa"
-ha{3} matches only "haaa"
-(ha)* matches e.g. "hahahahaha"
-(ha){3} matches only "hahaha"
+ha* matches e.g. "haaaaaaaa"  
+ha{3} matches only "haaa"  
+(ha)* matches e.g. "hahahahaha"  
+(ha){3} matches only "hahaha"  
 
