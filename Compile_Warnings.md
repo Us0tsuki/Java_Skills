@@ -45,3 +45,5 @@ Method m = c.getMethod("m");
 > InstantiationException when the Constructor is Not Accessible
 > Class.newInstance() will throw an InstantiationException if an attempt is made to create a new instance of the class and the zero-argument constructor is not visible. The ClassTrouble example illustrates the resulting stack trace.
 
+# What is a raw type?
+https://stackoverflow.com/questions/2770321/what-is-a-raw-type-and-why-shouldnt-we-use-it
