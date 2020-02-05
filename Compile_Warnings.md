@@ -47,3 +47,75 @@ Method m = c.getMethod("m");
 
 # What is a raw type?
 https://stackoverflow.com/questions/2770321/what-is-a-raw-type-and-why-shouldnt-we-use-it
+
+
+```
+Result[] results = table.get(getList);
+log.info("Get hbase results: {}", results);
+```
+non-varargs call of varargs method with inexact argument type for last parameter;
+
+The signature of log.info is:
+```
+public void invoke(Object obj, __Object...__ args)
+```
+which is a varargs method, which means that you can pass it any number of arguments (well, at least 1) and Java will internally collect them all in an array of objects. 
+
+However, you have:
+```
+Results[] parameter;
+```
+
+args is converted to an Object[], but is not handled as such, it seems.
+Class[] is not just an Object[] that happens to contain Class objects. It's a different type (a subtype of Object[]).
+
+Check this, it should give you a hint at the solution:
+```
+public class Test {
+    public static void main(String[] args) throws Exception {
+        String[] greetings = { "Hello", "Hi" };
+         
+        // no warning
+        Object[] objects = greetings;
+ 
+        // no warning
+        arrayTest(greetings);
+         
+        // no warning
+        varargTest(objects);
+ 
+        // warning
+        varargTest(greetings);
+    }
+ 
+    public static Object[] arrayTest(Object[] p) {
+        return p;
+    }
+    public static Object[] varargTest(Object... p) {
+        return p;
+    }
+}
+```
+
+It is because String[] and Object... do not exactly match up.
+
+You have to cast the String[] to either Object[] (if you want to pass the Strings as separate parameters) or Object (if you want just one argument that is an array) first.
+```
+ tva.varArgsMethod((Object[])args);    // you probably want that
+
+ tva.varArgsMethod( (Object) args);    // you probably don't want that, but who knows?
+```
+Why is this a warning and not an error? Backwards compatibility. Before the introduction of varargs, you had these methods take a Object[] and code compiled against that should still work the same way after the method has been upgraded to use varargs. The JDK standard library is full of cases like that. For example java.util.Arrays.asList(Object[]) has changed to java.util.Arrays.asList(Object...) in Java5 and all the old code that uses it should still compile and work without modifications.
+
+
+# Collections.EMPTY_LIST v.s. Collections.emptyList()
+Collections.EMPTY_LIST returns an old-style List
+Collections.emptyList() uses type-inference and therefore returns List<T>
+Collections.emptyList() was added in Java 1.5 and it is probably always preferable. This way, you don't need to unnecessarily cast around within your code.
+
+Collections.emptyList() intrinsically does the cast for you.
+
+@SuppressWarnings("unchecked")
+public static final <T> List<T> emptyList() {
+    return (List<T>) EMPTY_LIST;
+}
