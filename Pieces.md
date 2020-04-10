@@ -380,3 +380,6 @@ ha{3} matches only "haaa"
 # Avoid Re-assigning method parameters
 By some, it is considered an ill approach to assign values to parameters within a method's body, as it is, at times, confusing. Some developers prefer always assuming that a parameter is never assigned any value during a method's run.
 Especially when the parameter is an object, which is passed via reference.
+
+# Intro to Digital Signature
+http://www.youdzone.com/signature.html
