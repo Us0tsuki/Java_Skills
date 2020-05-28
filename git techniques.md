@@ -15,7 +15,8 @@ git config --global user.email "yujialiang1@huawei.com"
 git config -l 
 ```
 
-### git commit --amend  #修改commit信息
+### git commit --amend  
+修改commit信息
 ### git push [-f] <repo_name> [<refspec>...]
 e.g. 
 - git push 
@@ -121,6 +122,71 @@ By default, the git push command doesn’t transfer tags to remote servers. You 
 ```git push origin <tagname>```
 
 If you have a lot of tags that you want to push up at once, you can also use the --tags option to the git push command. This will transfer all of your tags to the remote server that are not already there.
+
+### git stash
+Stash the changes in a dirty working directory away
+Use git stash when you want to record the current state of the working directory and the index, but want to go back to a clean working directory. The command saves your local modifications away and reverts the working directory to match the HEAD commit.
+
+The modifications stashed away by this command can be listed with ```git stash list```, inspected with ```git stash show```, and restored (potentially on top of a different commit) with ```git stash apply```. Calling ```git stash``` without any arguments is equivalent to ```git stash push```. A stash is by default listed as "WIP on branchname …​", but you can give a more descriptive message on the command line when you create one.
+
+pop [--index] [-q|--quiet] [<stash>]
+Remove a single stashed state from the stash list and apply it on top of the current working tree state, i.e., do the inverse operation of git stash push. The working directory must match the index.
+
+Pulling into a dirty tree
+```
+$ git pull
+ ...
+file foobar not up to date, cannot merge.
+$ git stash
+$ git pull
+$ git stash pop
+```
+
+Interrupted workflow
+```
+# ... hack hack hack ...
+$ git stash
+$ edit emergency fix
+$ git commit -a -m "Fix in a hurry"
+$ git stash pop
+# ... continue hacking ...
+```
+
+### git restore
+git restore [<options>] [--source=<tree>] [--staged] [--worktree] [--] <pathspec>…​
+Restore specified paths in the working tree with some contents from a restore source. If a path is tracked but does not exist in the restore source, it will be removed to match the source. The command can also be used to restore the content in the index with --staged, or restore both the working tree and the index with --staged --worktree. By default, the restore sources for working tree and the index are the index and HEAD respectively. --source could be used to specify a commit as the restore source.
+
+-s <tree>
+--source=<tree>
+Restore the working tree files with the content from the given tree. It is common to specify the source tree by naming a commit, branch or tag associated with it.
+
+If not specified, the default restore source for the working tree is the __index__, and the default restore source for the index is HEAD. When both --staged and --worktree are specified, --source must also be specified.
+```$ git restore --source=HEAD --staged --worktree hello.c```
+or the short form which is more practical but less readable:
+```$ git restore -s@ -SW hello.c```
+
+
+### git switch
+(added in Git v2.23)
+__<branch-name>__
+The name of a local or remote branch that you want to switch to. If you specify the name of an existing local branch, you will switch to this branch and make it the current "HEAD" branch.
+But you can also specify a remote branch: in that case, Git will create a new local branch based on that remote branch and set up a tracking relationship.
+
+__-c <new-name>__
+The name of a new local branch you want to create. Using the "-c" flag, you can specify a name for a new branch that should be created. You can also specify a starting point (either another branch or a concrete revision); if you don't provide any specific starting point, the new branch will be based on the current HEAD branch.
+
+__<branch-name> --discard-changes__
+Switch to the specified branch and discard any local changes to obtain a clean working copy. As a general rule, your working copy does NOT have to be clean before you can use "switch". However, if you have local modifications that would conflict with the switched-to branch, Git would abort the switch. Using the "--discard-changes" flag will discard any of your current local changes and then switch to the specified branch.
+
+__\-__
+Switch back to the previous branch. When specifying just the "-" character instead of a branch name, Git will switch back to the last checked out branch. This can be helpful if you want to often and quickly jump between two branches.
+
+### git switch v.s. git checkout ?
+```git checkout``` is a bit of a swiss army knife in that has several unrelated uses.
+
+If you modify a file but haven't staged the change, then ```git checkout <filename>``` will reverse the modifications... a quick and easy way to cancel changes to a file. You remain in the same branch.```git checkout <branchname>``` (as you noted) switches branches.
+Two completely different purposes, which could lead to confusion if a file name and a branch name are similar.
+Having it as two commands is clearer.
 
 
 ### Git Error: Filename too long 报错
