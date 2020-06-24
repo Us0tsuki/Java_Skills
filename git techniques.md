@@ -92,6 +92,21 @@ This can be used when you want to __include further changes__ to the merge, or w
 
 P.S. You should refrain from abusing this option to sneak substantial changes into a merge commit. Small fixups like bumping release/version name would be acceptable.
 
+
+### git rebase
+In Git, there are two main ways to integrate changes from one branch into another: the merge and the rebase.With the rebase command, you can take all the changes that were committed on one branch and replay them on a different branch.
+For this example, you would check out the experiment branch, and then rebase it onto the master branch as follows:
+```
+$ git checkout experiment
+$ git rebase master
+```
+This operation works by going to the common ancestor of the two branches (the one you’re on and the one you’re rebasing onto), getting the diff introduced by each commit of the branch you’re on, saving those diffs to temporary files, resetting the current branch to the same commit as the branch you are rebasing onto, and finally applying each change in turn.
+
+Note that the snapshot pointed to by the final commit you end up with, whether it’s the last of the rebased commits for a rebase or the final merge commit after a merge, is the same snapshot —  __it’s only the history that is different__. Rebasing replays changes from one line of work onto another in the order they were introduced, whereas merging takes the endpoints and merges them together.
+
+### Squash commits into one
+https://www.internalpointers.com/post/squash-commits-into-one-git
+
 ### git tag
 Like most VCSs, Git has the ability to tag specific points in a repository’s history as being important. Typically, people use this functionality to mark release points (v1.0, v2.0 and so on).
 
@@ -221,3 +236,5 @@ git config --global core.longpaths true
 error: could not lock config file /pathto/file/.gitconfig: No such file or directory
 ```
 尝试了网上很多方法，无效，删除整个项目文件然后重新clone项目后再执行第三步，不报错误，问题解决。
+
+
