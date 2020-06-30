@@ -26,7 +26,7 @@ Without additional configuration, pushes the current branch to the configured up
 - git push origin master
 Find a ref that matches master in the source repository (most likely, it would find refs/heads/master), and update the same ref (e.g. refs/heads/master) in origin repository with it. If master did not exist remotely, it would be created.
 - git push origin HEAD:master
-Push the current branch to the remote ref matching master in the origin repository. This form is convenient to push the current branch without thinking about its local name.
+Push the current branch to the remote ref matchigit ng master in the origin repository. This form is convenient to push the current branch without thinking about its local name.
 
 ### git reset [<mode>] [<commit>]
 This form resets the current branch head to <commit> and possibly updates the index (resetting it to the tree of <commit>) and the working tree depending on <mode>. If <mode> is omitted, defaults to --mixed. The <mode> must be one of the following:
@@ -162,6 +162,9 @@ The modifications stashed away by this command can be listed with ```git stash l
 pop [--index] [-q|--quiet] [<stash>]
 Remove a single stashed state from the stash list and apply it on top of the current working tree state, i.e., do the inverse operation of git stash push. The working directory must match the index.
 
+git stash --all which stashes all files, including __untracked__ and ignored files.
+git stash --include-untracked(-u) no longer touches ignored files
+
 Pulling into a dirty tree
 ```
 $ git pull
@@ -237,4 +240,40 @@ error: could not lock config file /pathto/file/.gitconfig: No such file or direc
 ```
 尝试了网上很多方法，无效，删除整个项目文件然后重新clone项目后再执行第三步，不报错误，问题解决。
 
+### Syncing a fork
+Foreword: Your fork is the "origin" and the repository you forked from is the "upstream".
 
+Let's assume that you cloned already your fork to your computer with a command like this:
+```
+git clone git@github.com:your_name/project_name.git
+cd project_name
+```
+If that is given then you need to continue in this order:
+
+Add the "upstream" to your cloned repository ("origin"):
+
+`git remote add upstream git@github.com:original_author/project_name.git`
+Fetch the commits (and branches) from the "upstream":
+
+`git fetch upstream`
+Switch to the "master" branch of your fork ("origin"):
+
+`git checkout master`
+Stash the changes of your "master" branch:
+
+`git stash`
+Merge the changes from the "master" branch of the "upstream" into your the "master" branch of your "origin":
+
+`git merge upstream/master`
+Resolve merge conflicts if any and commit your merge
+
+`git commit -am "Merged from upstream"`
+Push the changes to your fork
+
+`git push`
+Get back your stashed changes (if any)
+
+`git stash pop`
+You're done! Congratulations!
+
+GitHub also provides instructions for this topic: Syncing a fork
