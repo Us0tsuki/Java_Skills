@@ -16,7 +16,18 @@ git config -l
 ```
 
 ### git commit --amend  
-修改commit信息
+修改上一个commit
+Amending a Commit Without Changing Its Message:
+```git commit --amend --no-edit```
+
+If you haven’t pushed the last commit yet to your remote, a single push is enough. Otherwise, you’ll have to push using the -f option since you’ve rewritten your commit history:
+```git push -f origin some_branch```
+
+Editing a Commit Without Opening a File:
+```git commit --amend -m "Your new commit message"```
+
+Remember: __NEVER__ rewrite the commit history of public branches (like master). This will truly mess your teammates work.
+
 ### git push [-f] <repo_name> [<refspec>...]
 e.g. 
 - git push 
