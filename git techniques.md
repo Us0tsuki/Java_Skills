@@ -288,3 +288,6 @@ Get back your stashed changes (if any)
 You're done! Congratulations!
 
 GitHub also provides instructions for this topic: Syncing a fork
+
+### How to undo (almost) anything with Git
+https://github.blog/2015-06-08-how-to-undo-almost-anything-with-git/
