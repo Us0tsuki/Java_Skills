@@ -291,3 +291,15 @@ GitHub also provides instructions for this topic: Syncing a fork
 
 ### How to undo (almost) anything with Git
 https://github.blog/2015-06-08-how-to-undo-almost-anything-with-git/
+
+
+### How to delete a branch
+__Delete Remote Branch__
+`git push -d <remote_name> <branch_name>`
+
+__Delete Local Branch__
+To delete the local branch use one of the following:
+`$ git branch -d branch_name`
+`$ git branch -D branch_name`
+__Note:__ The -d option is an alias for `--delete`, which only deletes the branch if it has already been fully merged in its upstream branch. You could also use -D, which is an alias for `--delete` `--force`, which deletes the branch "irrespective of its merged status."
+
