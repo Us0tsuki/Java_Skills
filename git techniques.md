@@ -303,3 +303,10 @@ To delete the local branch use one of the following:
 `$ git branch -D branch_name`
 __Note:__ The -d option is an alias for `--delete`, which only deletes the branch if it has already been fully merged in its upstream branch. You could also use -D, which is an alias for `--delete` `--force`, which deletes the branch "irrespective of its merged status."
 
+### How to remove commits ###
+1.Revert last one/few commits
+```git reset --hard HEAD~n```
+
+2.Remove a commit in the middle
+```git rebase -i HEAD~5```
+to open up the interactive rebasing session, then use ```d/drop``` to remove the unwanted commit.
