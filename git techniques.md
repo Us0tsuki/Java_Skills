@@ -198,6 +198,9 @@ $ git stash pop
 # ... continue hacking ...
 ```
 
+What to do when conflicts arises after ```git stash pop``` 
+https://stackoverflow.com/questions/7751555/how-to-resolve-git-stash-conflict-without-commit
+
 ### git restore
 git restore [<options>] [--source=<tree>] [--staged] [--worktree] [--] <pathspec>…​
 Restore specified paths in the working tree with some contents from a restore source. If a path is tracked but does not exist in the restore source, it will be removed to match the source. The command can also be used to restore the content in the index with --staged, or restore both the working tree and the index with --staged --worktree. By default, the restore sources for working tree and the index are the index and HEAD respectively. --source could be used to specify a commit as the restore source.
