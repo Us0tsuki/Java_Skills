@@ -315,3 +315,8 @@ __Note:__ The -d option is an alias for `--delete`, which only deletes the branc
 2.Remove a commit in the middle
 ```git rebase -i HEAD~5```
 to open up the interactive rebasing session, then use ```d/drop``` to remove the unwanted commit.
+
+
+### .gitingore not working
+.gitignore only ignores files that are not part of the repository yet. If you already git added some files, their changes will still be tracked. To remove those files from your repository (but not from your file system) use git rm --cached on them. e.g.:
+```git rm --cached -r .gradle/```
