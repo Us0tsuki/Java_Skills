@@ -58,3 +58,7 @@ for {
   ...
 }
 ```
+
+因为 etcd 将每一次修改都记录了下来，使用 watch 订阅数据时，可以支持从任意历史时刻（指定 revision）开始创建一个 watcher，在客户端与 etcd 之间建立一个数据管道，etcd 会推送从指定 revision 开始的所有数据变更。etcd 提供的 watch 机制保证，该 Key 的数据后续的被修改之后，通过这个数据管道即时的推送给客户端。
+
+![](https://ucc.alicdn.com/pic/developer-ecology/c42d42cec9964c4b9f05f361799769f9.png)
