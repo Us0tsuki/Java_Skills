@@ -26,11 +26,6 @@ Leases: Grant / Revoke / KeepAlive
 term 代表的是整个集群 Leader 的任期。当集群发生 Leader 切换，term 的值就会 +1。在节点故障，或者 Leader 节点网络出现问题，再或者是将整个集群停止后再次拉起，都会发生 Leader 的切换。
 revision 代表的是全局数据的版本。当数据发生变更，包括创建、修改、删除，其 revision 对应的都会 +1。特别的，在集群中跨 Leader 任期之间，revision 都会保持全局单调递增。正是 revision 的这一特性，使得集群中任意一次的修改都对应着一个唯一的 revision，因此我们可以通过 revision 来支持数据的 MVCC，也可以支持数据的 Watch。
 
-对于每一个 KeyValue 数据节点，etcd 中都记录了三个版本：
-+ 第一个版本叫做 create_revision，是 KeyValue 在创建时对应的 revision；
-+ 第二个叫做 mod_revision，是其数据被操作的时候对应的 revision；
-+ 第三个 version 就是一个计数器，代表了 KeyValue 被修改了多少次。
-
 put key1: term = 2, rev = 6
 put key2: term = 2, rev = 7
 delete key1: term=2, rev = 8
@@ -39,3 +34,27 @@ put key2: term = 2, rev = 9
 put key3: term = 3, rev = 10
 put key4: term = 3, rev = 11
 delete key2: term = 3, rev = 12
+
+对于每一个 KeyValue 数据节点，etcd 中都记录了三个版本：
++ 第一个版本叫做 create_revision，是 KeyValue 在创建时对应的 revision；
++ 第二个叫做 mod_revision，是其数据被操作的时候对应的 revision；
++ 第三个 version 就是一个计数器，代表了 KeyValue 被修改了多少次。
+
+
+
+## mvcc(multi-version concurrency control) & streaming watch
+在 etcd 中支持对同一个 Key 发起多次数据修改，每次数据修改都对应一个版本号。etcd 在实现上记录了每一次修改对应的数据，也就就意味着一个 key 在 etcd 中存在多个历史版本。在查询数据的时候如果不指定版本号，etcd 会返回 Key 对应的最新版本，当然 etcd 也支持指定一个版本号来查询历史数据。
+```
+  put(key, value1) rev = 5
+  put(key, value2) rev = 6
+  get(key) -> value2
+  get(key, rev = 5) -> value1
+```
+```
+watcher = Watch(key, rev)
+for {
+  event = watcher.Recv()
+  handle(event)
+  ...
+}
+```
