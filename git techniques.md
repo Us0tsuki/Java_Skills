@@ -320,3 +320,13 @@ to open up the interactive rebasing session, then use ```d/drop``` to remove the
 ### .gitingore not working
 .gitignore only ignores files that are not part of the repository yet. If you already git added some files, their changes will still be tracked. To remove those files from your repository (but not from your file system) use git rm --cached on them. e.g.:
 ```git rm --cached -r .gradle/```
+
+### restore deleted local branch
+ If you just deleted the branch, you'll see something like this in your terminal:
+```Deleted branch <your-branch> (was <sha>)```
+To restore the branch, use: 
+```git checkout -b <branch> <sha>```
+
+If you don't know the 'sha' off the top of your head, you can:
+Find the 'sha' for the commit at the tip of your deleted branch using: 
+```git reflog```
