@@ -78,7 +78,7 @@ and
 git log 7c6b236
 
 
-### __<pathspecs>__ in git
+### \<pathspecs\> in git
 It can be an absolute path or relative path to current working directory.
 
 ### git merge 
@@ -121,9 +121,10 @@ Note that the snapshot pointed to by the final commit you end up with, whether i
 https://www.internalpointers.com/post/squash-commits-into-one-git
 
 Undo squash commits:
-git reflog find out the hash of head commit before squash
+git reflog find out the hash of head commit before squash  
+Checkout to a new branch:
 ```git checkout -b new_branch [commit-hash]```
-or simply
+or simply reset
 ```git reset --hard [commit-hash]```
     
 ### git tag
