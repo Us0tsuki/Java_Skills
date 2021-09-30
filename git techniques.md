@@ -63,7 +63,7 @@ __Note:__ git revert is used to record some new commits to reverse the effect of
 --mainline parent-number
 Usually you cannot revert a __merge__ because you do not know which side of the merge should be considered the mainline. This option specifies the parent number (starting from 1) of the mainline and allows revert to reverse the change relative to the specified parent.
 
-When you view a merge commit in the output of git log, you will see its parents listed on the line that begins with Merge:
+When you view a merge commit in the output of git log, you will see its parents listed on the line that begins with Merge:  
 commit 8f937c683929b08379097828c8a04350b9b8e183  
 Merge: 8989ee0 7c6b236  
 Author: Ben James <ben@example.com>  
@@ -78,7 +78,7 @@ and
 git log 7c6b236
 
 
-### <pathspecs> in git
+### __<pathspecs>__ in git
 It can be an absolute path or relative path to current working directory.
 
 ### git merge 
