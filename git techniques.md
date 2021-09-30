@@ -64,13 +64,13 @@ __Note:__ git revert is used to record some new commits to reverse the effect of
 Usually you cannot revert a __merge__ because you do not know which side of the merge should be considered the mainline. This option specifies the parent number (starting from 1) of the mainline and allows revert to reverse the change relative to the specified parent.
 
 When you view a merge commit in the output of git log, you will see its parents listed on the line that begins with Merge:
-commit 8f937c683929b08379097828c8a04350b9b8e183
-Merge: 8989ee0 7c6b236
-Author: Ben James <ben@example.com>
-Date:   Wed Aug 17 22:49:41 2011 +0100
-Merge branch 'gh-pages'
-Conflicts:
-    README
+commit 8f937c683929b08379097828c8a04350b9b8e183  
+Merge: 8989ee0 7c6b236  
+Author: Ben James <ben@example.com>  
+Date:   Wed Aug 17 22:49:41 2011 +0100  
+Merge branch 'gh-pages'  
+Conflicts:  
+    README  
 In this situation, ```git revert 8f937c6 -m 1```will get you the tree as it was in ```8989ee0```, and ```git revert -m 2```will reinstate the tree as it was in ```7c6b236```.
 To better understand the parent IDs, you can run:
 git log 8989ee0 
@@ -107,7 +107,7 @@ P.S. You should refrain from abusing this option to sneak substantial changes in
 
 
 ### git rebase
-In Git, there are two main ways to integrate changes from one branch into another: the merge and the rebase.With the rebase command, you can take all the changes that were committed on one branch and replay them on a different branch.
+In Git, there are two main ways to integrate changes from one branch into another: the merge and the rebase. With the rebase command, you can take all the changes that were committed on one branch and replay them on a different branch.
 For this example, you would check out the experiment branch, and then rebase it onto the master branch as follows:
 ```
 $ git checkout experiment
@@ -120,6 +120,12 @@ Note that the snapshot pointed to by the final commit you end up with, whether i
 ### Squash commits into one
 https://www.internalpointers.com/post/squash-commits-into-one-git
 
+Undo squash commits:
+git reflog find out the hash of head commit before squash
+```git checkout -b new_branch [commit-hash]```
+or simply
+```git reset --hard [commit-hash]```
+    
 ### git tag
 Like most VCSs, Git has the ability to tag specific points in a repository’s history as being important. Typically, people use this functionality to mark release points (v1.0, v2.0 and so on).
 
