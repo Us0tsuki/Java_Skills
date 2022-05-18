@@ -15,4 +15,4 @@ Second Line sentence
 Best for inserting an empty line
 
 To escape a special char:  
-Use back slash(\\)
+Use back slash (\\)
