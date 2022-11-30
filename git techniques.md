@@ -97,15 +97,28 @@ Merge branch obsolete into the current branch, using ours merge strategy:
 ```
 $ git merge -s ours obsolete
 ```
+--commit
+Perform the merge and commit the result.
+    
 Merge branch maint into the current branch, but do not make a new commit automatically:
 ```
 $ git merge --no-commit maint
 ```
-This can be used when you want to __include further changes__ to the merge, or want to write your own merge commit message.
+Perform the merge and stop just before creating a merge commit, to give the user a chance to inspect and further tweak the merge result before committing. (This can be used when you want to __include further changes__ to the merge, or want to write your own merge commit message.)
 
 P.S. You should refrain from abusing this option to sneak substantial changes into a merge commit. Small fixups like bumping release/version name would be acceptable.
 
+--ff
+--no-ff
+--ff-only
+Specifies how a merge is handled when the merged-in history is already a descendant of the current history. --ff is the default unless merging an annotated (and possibly signed) tag that is not stored in its natural place in the refs/tags/ hierarchy, in which case --no-ff is assumed.
 
+With --ff, when possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.
+
+With --no-ff, create a merge commit in all cases, even when the merge could instead be resolved as a fast-forward.
+
+With --ff-only, resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status.
+    
 ### git rebase
 In Git, there are two main ways to integrate changes from one branch into another: the merge and the rebase. With the rebase command, you can take all the changes that were committed on one branch and replay them on a different branch.
 For this example, you would check out the experiment branch, and then rebase it onto the master branch as follows:
