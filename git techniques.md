@@ -369,8 +369,8 @@ For example, if your commit history is A-B-C-D-E-F with F as HEAD, and you want 
 9. git rebase --continue
 10. The rebase would complete.
   
-### Undo the last "commit --amend" command  
-```git reset --soft HEAD@{1}```
+### Undo the last "commit --amend" command    
+```git reset --soft HEAD@{1}```  
 If not working, use ```git reflog``` to find the exact commit hash first:  
 ```
 git reflog
