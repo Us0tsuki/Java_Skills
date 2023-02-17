@@ -1,0 +1,12 @@
+https://github.com/argoproj/argo-workflows/packages/1060616?version=v3.4.5
+
+Data Focused or Model focused?
+https://ml-ops.org/content/end-to-end-ml-workflow
+
+Typical ML Workflows:
+https://cloud.google.com/ai-platform/docs/ml-solutions-overview
+https://towardsdatascience.com/workflow-of-a-machine-learning-project-ec1dba419b94
+https://medium.com/analytics-vidhya/what-is-a-pipeline-in-machine-learning-how-to-create-one-bda91d0ceaca
+
+WF Engine other than Argo:
+https://valohai.com/machine-learning-pipeline/
