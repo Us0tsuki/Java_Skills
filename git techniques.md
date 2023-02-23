@@ -380,7 +380,9 @@ git reset --soft c296452
 ```
 
 ### Calculate totol code contribution of a specific author in a repo
+```
 git log --shortstat --author "Alex Yu" --since "28 weeks ago"\
     | grep "files\? changed" \
     | awk '{files+=$1; inserted+=$4; deleted+=$6} END \
            {print "files changed", files, "lines inserted:", inserted, "lines deleted:", deleted}'
+```
