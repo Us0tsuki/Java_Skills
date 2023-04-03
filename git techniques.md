@@ -386,3 +386,14 @@ git log --shortstat --author "Alex Yu" --since "28 weeks ago"\
     | awk '{files+=$1; inserted+=$4; deleted+=$6} END \
            {print "files changed", files, "lines inserted:", inserted, "lines deleted:", deleted}'
 ```
+
+### Show Summary of Logs
+git shortlog
+Summarizes git log output in a format suitable for inclusion in release announcements. Each commit will be grouped by author and title. 
+-n
+--numbered
+Sort output according to the number of commits per author instead of author alphabetic order.
+
+-s
+--summary
+Suppress commit description and provide a commit count summary only.
